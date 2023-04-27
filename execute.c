@@ -35,7 +35,7 @@ void execute_command(char **argv, char *command)
 		{
 			if (execve(tokens[0], tokens, environ) == -1)
 			{
-				fprintf(stderr, "%s: Command not found\n", argv[0]);
+				fprintf(stderr, "%s: %s: not found\n", argv[0], tokens[0]);
 				free(command);
 				exit(EXIT_SUCCESS);
 			}
