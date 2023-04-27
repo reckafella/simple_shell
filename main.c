@@ -1,54 +1,59 @@
 #include "main.h"
 
 /**
- * main - the main method of the shell program
- * @argc: number of arguments
- * @argv: no
- * @envp: no
+ * main - program's entry point
+ * @argc: number of args
+ * @argv: vector of args
  *
- * Return: 0
+ * Return: 0 always
 */
-
-int main(int argc, char *argv[], char **envp)
+int main(int argc, char **argv)
 {
-	char line[MAX_LINE];
-	char *tokens[LIMIT];
-	int num_of_tokens;
+	if (argc >= 1)
+		prompt(argv);
 
-	/* This prevents the printing of the shell after certain methods */
-	no_reprint_prmpt = 0;
+	return (0);
+}
 
-	/* Initialize pid with an impossible value */
-	pid = -10;
+/**
+ * prompt - provides prompt for user to enter commands
+ * @argv: commands
+*/
+void prompt(char **argv)
+{
+	char *buffer = NULL;
+	size_t n = 0;
+	ssize_t char_count;
 
-	/* Initalize the shell program */
-	initialize_shell();
-	welcome_screen();
-
-	/* Our loop within which input is read and output printed */
-	while (TRUE)
+	while (1)
 	{
-		/* print shell prompt if necessary*/
-		if (no_reprint_prmpt == 0)
-			shell_prompt();
-		no_reprint_prmpt = 0;
+		if (isatty(STDIN_FILENO))
+			printf("$ ");
 
-		/* Empty line buffer */
-		memset(line, '\0', MAX_LINE);
+		char_count = getline(&buffer, &n, stdin);
+		if (char_count == -1)
+		{
+			free(buffer);
+			exit(EXIT_FAILURE);
+		}
+		buffer[strcspn(buffer, "\n")] = 0;
 
-		/* wait for user input */
-		fgets(line, MAX_LINE, stdin);
-
-		/* When no input is passed, loop is re-executed */
-		tokens[0] = strtok(line, " \n\t");
-		if ((tokens[0]) == NULL)
-			continue;
-
-		/* read all tokens of the input and pass it to command_handler */
-		num_of_tokens = 1;
-		while ((tokens[num_of_tokens] = strtok(NULL, " \n\t")) != NULL)
-			num_of_tokens++;
-		command_handler(tokens);
+		if (_strcmp(buffer, "exit") == 0)
+		{
+			cleanup(buffer);
+			exit(EXIT_SUCCESS);
+		}
+		else if (_strcmp(buffer, "help") == 0)
+			dprintf(STDOUT_FILENO, "%s\n", SHELL_HELP);
+		else if (_strcmp(buffer, "env") == 0)
+			print_env();
+		else if (_strcmp(buffer, "history") == 0)
+			read_history();
+		else
+		{
+			execute_command(argv, buffer);
+			append_history(buffer);
+		}
 	}
-	exit(0);
+	free(buffer);
 }

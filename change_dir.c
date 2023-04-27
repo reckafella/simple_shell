@@ -2,6 +2,9 @@
 
 /**
  * change_directory - function to help navigate directories
+ * @argv: argument vector
+ *
+ * Return: 0 on success
 */
 
 int change_directory(char *argv[])
@@ -13,7 +16,7 @@ int change_directory(char *argv[])
 
 	if (argv[1] == NULL)
 	{
-		chdir(getenv("HOME"));
+		chdir(_getenv("HOME"));
 		return (1);
 	}
 	else
@@ -26,4 +29,12 @@ int change_directory(char *argv[])
 	}
 
 	return (0);
+}
+/**
+ * cleanup - deallocate memory
+ * @command: dynamically allocated buffer
+*/
+void cleanup(char *command)
+{
+	free(command);
 }
