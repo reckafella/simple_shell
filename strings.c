@@ -1,134 +1,74 @@
 #include "main.h"
 
 /**
- * _strlen - return string length
- * @str: null-terminated string
- *
- * Return: string length
-*/
-int _strlen(const char *str)
-{
-	int len = 0;
-
-	while (str[len] != '\0')
-		len++;
-
-	return (len);
-}
-
-/**
- * _strncmp - compare two strings upto a specified position
- * @first: first string
- * @second: second string
- * @len: length
- *
- * Return: 0 if (s1 == s2), <0 if (s1 < s2), >0 if (s2 > s1)
-*/
-int _strncmp(const char *first, const char *second, size_t len)
-{
-	while (len && *first && (*first == *second))
-	{
-		first++;
-		second++;
-		len--;
-	}
-
-	if (len == 0)
-		return (0);
-
-	return (*(unsigned char *)first - *(unsigned char *)second);
-}
-
-/**
- * _strcmp - compare two strings upto a specified position
- * @first: first string
- * @second: second string
- *
- * Return: 0 if (s1 == s2), <0 if (s1 < s2), >0 if (s2 > s1)
-*/
-int _strcmp(const char *first, const char *second)
-{
-	while (*first && (*first == *second))
-	{
-		first++;
-		second++;
-	}
-	return (*(unsigned char *)first - *(unsigned char *)second);
-}
-
-/**
- * _strtok - return tokens from slicing a string by a delimiter
- * @str: string
- * @delim: delimiter
- *
- * Return: pointer to the tokens
-*/
-char *_strtok(char *str, const char *delim)
-{
-	static char *last_str;
-	char *start, *end;
-
-	if (str != NULL)
-		last_str = str;
-	else if (last_str == NULL)
-		return (NULL);
-
-	start = last_str;
-	while (*last_str != '\0')
-	{
-		end = last_str;
-
-		while (*delim != '\0' && *delim != *last_str)
-			delim++;
-		if (*delim != '\0' && *last_str == *delim)
-		{
-			*last_str = '\0';
-			last_str++;
-			return (start);
-		}
-		last_str++;
-		delim = delim - (end - last_str);
-	}
-	return (start);
-}
-
-/**
- * _strdup - return a pointer to a duplicate of given string parameter
- * @str: input string parameter
- *
- * Return: pointer
+ **_strncpy - copies a string
+ *@dest: the destination string to be copied to
+ *@src: the source string
+ *@n: the amount of characters to be copied
+ *Return: the concatenated string
  */
-
-char *_strdup(char *str)
+char *_strncpy(char *dest, char *src, int n)
 {
-	int len = 0;
-	int i = 0;
+	int i, j;
+	char *s = dest;
 
-	char *ptr;
-
-	if (!str)
+	i = 0;
+	while (src[i] != '\0' && i < n - 1)
 	{
-		return (NULL);
-	}
-
-	while (str[len] != '\0')
-	{
-		++len;
-	}
-
-	ptr = malloc((len + 1) * sizeof(char));
-
-	if (!ptr)
-	{
-		return (NULL);
-	}
-
-	while (str[i] != '\0')
-	{
-		ptr[i] = str[i];
+		dest[i] = src[i];
 		i++;
 	}
-	ptr[i] = '\0';
+	if (i < n)
+	{
+		j = i;
+		while (j < n)
+		{
+			dest[j] = '\0';
+			j++;
+		}
+	}
+	return (s);
+}
 
-	return (ptr);
+/**
+ **_strncat - concatenates two strings
+ *@dest: the first string
+ *@src: the second string
+ *@n: the amount of bytes to be maximally used
+ *Return: the concatenated string
+ */
+char *_strncat(char *dest, char *src, int n)
+{
+	int i, j;
+	char *s = dest;
+
+	i = 0;
+	j = 0;
+	while (dest[i] != '\0')
+		i++;
+	while (src[j] != '\0' && j < n)
+	{
+		dest[i] = src[j];
+		i++;
+		j++;
+	}
+	if (j < n)
+		dest[i] = '\0';
+	return (s);
+}
+
+/**
+ **_strchr - locates a character in a string
+ *@s: the string to be parsed
+ *@c: the character to look for
+ *Return: (s) a pointer to the memory area s
+ */
+char *_strchr(char *s, char c)
+{
+	do {
+		if (*s == c)
+			return (s);
+	} while (*s++ != '\0');
+
+	return (NULL);
 }
