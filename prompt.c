@@ -142,7 +142,6 @@ void fork_command(func_t *data)
 				exit(126);
 			exit(1);
 		}
-		/* TODO: PUT ERROR FUNCTION */
 	}
 	else
 	{

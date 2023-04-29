@@ -3,7 +3,8 @@
 /**
  * **strtwd - splits a string into words. Repeat delimiters are ignored
  * @str: the input string
- * @d: the delimeter string
+ * @delim: the delimeter string
+ *
  * Return: a pointer to an array of strings, or NULL on failure
  */
 
@@ -17,7 +18,8 @@ char **strtwd(char *str, char *delim)
 	if (!delim)
 		delim = " ";
 	for (i = 0; str[i] != '\0'; i++)
-		if (!check_delim(str[i], delim) && (check_delim(str[i + 1], delim) || !str[i + 1]))
+		if (!check_delim(str[i], delim) &&
+				(check_delim(str[i + 1], delim) || !str[i + 1]))
 			tokens++;
 
 	if (tokens == 0)
@@ -49,9 +51,10 @@ char **strtwd(char *str, char *delim)
 }
 
 /**
- * **strtw2 - split a string into tokens
+ * **strtwd2 - split a string into tokens
  * @str: string
- * @d: delimeter
+ * @delim: delimeter
+ *
  * Return: a pointer to an array of strings / NULL
  */
 char **strtwd2(char *str, char delim)

@@ -1,9 +1,9 @@
 #include "main.h"
 
 /**
- * shell_env - prints the current environment
- * @data: Structure containing potential arguments. Used to maintain
- *          constant function prototype.
+ * shell_env - print the current environment
+ * @data: Structfor maintaining constant function prototype.
+ *
  * Return: Always 0
  */
 int shell_env(func_t *data)
@@ -12,9 +12,10 @@ int shell_env(func_t *data)
 	return (0);
 }
 
+
 /**
- * _getenv - gets the value of an environ variable
- * @data: Structure containing potential arguments. Used to maintain
+ * _getenv - get the value of an environ variable
+ * @data: Struct used to maintain constant function prototypes
  * @name: env var name
  *
  * Return: the value
@@ -34,11 +35,11 @@ char *_getenv(func_t *data, const char *name)
 	return (NULL);
 }
 
+
 /**
- * set_env - Initialize a new environment variable,
- *             or modify an existing one
- * @data: Structure containing potential arguments. Used to maintain
- *        constant function prototype.
+ * set_env - Initialize a new environment variable, or modify an existing one
+ * @data: Structure used to maintain constant function prototype.
+ *
  *  Return: Always 0
  */
 int set_env(func_t *data)
@@ -53,11 +54,12 @@ int set_env(func_t *data)
 	return (1);
 }
 
+
 /**
  * unset_env - Remove an environment variable
- * @data: Structure containing potential arguments. Used to maintain
- *        constant function prototype.
- *  Return: Always 0
+ * @data: Structure used to maintain constant function prototype.
+ *
+ * Return: Always 0
  */
 int unset_env(func_t *data)
 {
@@ -74,10 +76,11 @@ int unset_env(func_t *data)
 	return (0);
 }
 
+
 /**
  * append_env_list - populates env linked list
- * @data: Structure containing potential arguments. Used to maintain
- *          constant function prototype.
+ * @data: Structure used to maintain constant function prototype.
+ *
  * Return: Always 0
  */
 int append_env_list(func_t *data)

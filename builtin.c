@@ -4,7 +4,8 @@
  * exit_shell - exits the shell
  * @data: Structure containing arguments. Used to maintain
  *          constant function prototype.
- *  Return: exits with a given exit status
+ *
+ * Return: exits with a given exit status
  *         (0) if data.argv[0] != "exit"
  */
 int exit_shell(func_t *data)
@@ -37,17 +38,16 @@ int exit_shell(func_t *data)
  */
 int change_directory(func_t *data)
 {
-	char *s, *dir, buffer[1024];
+	char *s = getcwd(buffer, 1024), *dir, buffer[1024];
 	int chdir_ret;
 
-	s = getcwd(buffer, 1024);
 	if (!s)
 		_puts("TODO: >>getcwd failure emsg here<<\n");
 	if (!data->agstr[1])
 	{
 		dir = _getenv(data, "HOME=");
 		if (!dir)
-			chdir_ret = /* TODO: what should this be? */
+			chdir_ret =
 				chdir((dir = _getenv(data, "PWD=")) ? dir : "/");
 		else
 			chdir_ret = chdir(dir);
@@ -61,7 +61,7 @@ int change_directory(func_t *data)
 			return (1);
 		}
 		_puts(_getenv(data, "OLDPWD=")), _putchar('\n');
-		chdir_ret = /* TODO: what should this be? */
+		chdir_ret =
 			chdir((dir = _getenv(data, "OLDPWD=")) ? dir : "/");
 	}
 	else

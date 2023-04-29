@@ -11,6 +11,7 @@ int check_if_interactive(func_t *data)
 	return (isatty(STDIN_FILENO) && data->rfd <= 2);
 }
 
+
 /**
  * check_delim - checks if character is a delimeter
  * @c: the char to check
@@ -24,6 +25,7 @@ int check_delim(char c, char *delim)
 			return (1);
 	return (0);
 }
+
 
 /**
  *check_alpha - determine alphabetic character

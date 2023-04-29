@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * clear_data - initializes func_t struct
+ * clear_data - initialize func_t struct
  * @data: struct address
  */
 void clear_data(func_t *data)
@@ -11,6 +11,7 @@ void clear_data(func_t *data)
 	data->command_path = NULL;
 	data->ac = 0;
 }
+
 
 /**
  * set_data - initializes func_t struct
@@ -43,6 +44,7 @@ void set_data(func_t *data, char **av)
 		replace_variables(data);
 	}
 }
+
 
 /**
  * free_data - frees func_t struct fields

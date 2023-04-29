@@ -45,7 +45,8 @@ int check_chain_delims(func_t *data, char *buffer, size_t *pos)
  *
  * Return: Void
  */
-void continue_chains(func_t *data, char *buffer, size_t *pos, size_t start, size_t buflen)
+void continue_chains(func_t *data, char *buffer,
+		size_t *pos, size_t start, size_t buflen)
 {
 	size_t j = *pos;
 

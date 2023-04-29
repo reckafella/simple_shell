@@ -18,7 +18,7 @@ char **get_environ(func_t *data)
 }
 
 /**
- * getenv_unsetenv - Remove an environment variable
+ * _unsetenv - Remove an environment variable
  * @data: Structure containing potential arguments. Used to maintain
  *        constant function prototype.
  *  Return: 1 on delete, 0 otherwise
@@ -50,7 +50,7 @@ int _unsetenv(func_t *data, char *var)
 }
 
 /**
- * getenv_setenv - Initialize a new environment variable,
+ * _setenv - Initialize a new environment variable,
  *             or modify an existing one
  * @data: Structure containing potential arguments. Used to maintain
  *        constant function prototype.

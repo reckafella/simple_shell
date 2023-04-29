@@ -26,7 +26,8 @@ int bfree(void **ptr)
  *
  * Return: pointer to reallocated block.
  */
-void *reallocate_memory(void *ptr, unsigned int old_size, unsigned int new_size)
+void *reallocate_memory(void *ptr, unsigned int old_size,
+		unsigned int new_size)
 {
 	char *p;
 

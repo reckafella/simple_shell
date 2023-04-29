@@ -15,7 +15,7 @@ int hist_list(func_t *data)
 /**
  * unset_alias_node - sets alias_node to string
  * @data: parameter struct
- * @str: the string alias_node
+ * @string: the string alias_node
  *
  * Return: Always 0 on success, 1 on error
  */
@@ -30,7 +30,8 @@ int unset_alias_node(func_t *data, char *string)
 	ch = *ptr;
 	*ptr = 0;
 	result = delete_node_at_index(&(data->alias_node),
-		getnode_at_index(data->alias_node, node_matches_prefix(data->alias_node, string, -1)));
+		getnode_at_index(data->alias_node,
+			node_matches_prefix(data->alias_node, string, -1)));
 	*ptr = ch;
 	return (result);
 }
@@ -106,7 +107,10 @@ int alias_node(func_t *data)
 		if (p)
 			set_alias_node(data, data->agstr[i]);
 		else
-			print_alias_node(node_matches_prefix(data->alias_node, data->agstr[i], '='));
+			print_alias_node(
+					node_matches_prefix(
+						data->alias_node,
+						data->agstr[i], '='));
 	}
 
 	return (0);

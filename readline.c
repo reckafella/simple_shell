@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * input_buf - buffers chained commands
+ * input_buffer - buffers chained commands
  * @data: parameter struct
  * @buffer: address of buffer
  * @length: address of len var
@@ -88,7 +88,7 @@ ssize_t getline_input(func_t *data)
 }
 
 /**
- * read_buf - reads a buffer
+ * read_buffer - reads a buffer
  * @data: struct
  * @buffer: buffer
  * @i: size
@@ -157,7 +157,6 @@ int _getline(func_t *data, char **ptr, size_t *length)
 /**
  * sigint_handler - blocks ctrl-C
  * @sig_num: the signal number
- * Return: void
  */
 void sigint_handler(__attribute__((unused))int sig_num)
 {
