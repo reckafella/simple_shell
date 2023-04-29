@@ -1,59 +1,44 @@
 #include "main.h"
 
 /**
- * main - program's entry point
- * @argc: number of args
- * @argv: vector of args
+ * main - entry point
+ * @ac: arg count
+ * @av: arg vector
  *
- * Return: 0 always
-*/
+ * Return: 0 on success, 1 on error
+ */
 int main(int argc, char **argv)
 {
-	if (argc >= 1)
-		prompt(argv);
+	func_t data[] = { FUNCT_INIT };
+	int fd = 2;
 
-	return (0);
-}
+	asm ("mov %1, %0\n\t"
+		"add $3, %0"
+		: "=r" (fd)
+		: "r" (fd));
 
-/**
- * prompt - provides prompt for user to enter commands
- * @argv: commands
-*/
-void prompt(char **argv)
-{
-	char *buffer = NULL;
-	size_t n = 0;
-	ssize_t char_count;
-
-	while (1)
+	if (argc == 2)
 	{
-		if (isatty(STDIN_FILENO))
-			printf("$ ");
-
-		char_count = getline(&buffer, &n, stdin);
-		if (char_count == -1)
+		fd = open(argv[1], O_RDONLY);
+		if (fd == -1)
 		{
-			free(buffer);
-			exit(EXIT_FAILURE);
+			if (errno == EACCES)
+				exit(126);
+			if (errno == ENOENT)
+			{
+				_puts(argv[0]);
+				_puts(": 0: Can't open ");
+				_puts(argv[1]);
+				_putchar('\n');
+				print_decimal(BUFFER_FLUSH, 2);
+				exit(127);
+			}
+			return (EXIT_FAILURE);
 		}
-		buffer[strcspn(buffer, "\n")] = 0;
-
-		if (_strcmp(buffer, "exit") == 0)
-		{
-			cleanup(buffer);
-			exit(EXIT_SUCCESS);
-		}
-		else if (_strcmp(buffer, "help") == 0)
-			dprintf(STDOUT_FILENO, "%s\n", SHELL_HELP);
-		else if (_strcmp(buffer, "env") == 0)
-			print_env();
-		else if (_strcmp(buffer, "history") == 0)
-			read_history();
-		else
-		{
-			execute_command(argv, buffer);
-			append_history(buffer);
-		}
+		data->rfd = fd;
 	}
-	free(buffer);
+	append_env_list(data);
+	read_history(data);
+	prompt(data, argv);
+	return (EXIT_SUCCESS);
 }
