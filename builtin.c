@@ -38,7 +38,7 @@ int exit_shell(func_t *data)
  */
 int change_directory(func_t *data)
 {
-	char *s = getcwd(buffer, 1024), *dir, buffer[1024];
+	char buffer[1024], *s = getcwd(buffer, 1024), *dir;
 	int chdir_ret;
 
 	if (!s)
